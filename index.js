@@ -1,34 +1,11 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
-const Employee = require('./lib/employee');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 const Manager = require('./lib/manager');
 const valCheck = (value) => { if(value){return true} else {return 'Please enter a value.'}};
 const teamMembers = []
-
-function addMore() {
-    inquirer.prompt([
-        {
-            type: 'list',
-            message: 'Add another team member?',
-            name: 'addMore',
-            choices: [
-                'Yes', 
-                'No'
-            ],
-        }
-    ])
-    .then(function({addMore}) {
-        if (addMore === 'Yes') {
-            addMember();
-        }
-        else if (addMore === 'No') {
-            // create end fxn
-            exitAdd();
-        }
-    })
-}
+const fs = require('fs');
+const path = './dist/team.html';
 
 function addMember() {
     inquirer.prompt([
@@ -131,28 +108,88 @@ function addMember() {
     })
 }
 
-function exitAdd() {
-    console.log('Thank you for using the Team Generator!')
+function addMore() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'Add another team member?',
+            name: 'addMore',
+            choices: [
+                'Yes', 
+                'No'
+            ],
+        }
+    ])
+    .then(function({addMore}) {
+        if (addMore === 'Yes') {
+            addMember();
+        }
+        else if (addMore === 'No') {
+            exitAdd();
+        }
+    })
 }
 
-addMember();
+function baseHTML() {
+    const html = `<!DOCTYPE html>
+<html lang="en">
 
-// function writeToFile(path, data) {
-//     fs.writeFile(path, data, err => {
-//         if(err){
-//             console.log(err)
-//         }
-//         else{console.log('Your README has generated successfully!')}
-//     })
-// }
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-// async function init() {
-//     await inquirer
-//     .prompt(questions)
-//     .then(response => {
-//         writeToFile(path, generateMarkdown(response));
-//         console.log('Thank you for using the MissNG README generator! :)');
-//     });    
-// }
+    <title>MissNG Team</title>
 
-// init();
+    <!-- add CSS? -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/5e88de36ed.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 jumbotron mb-3 team-header">
+                <h1 class="text-center">My Team</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="team-content col-12 d-flex justify-content-center">
+                <!-- Team Cards -->
+`;
+    fs.writeFile(path, html, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    console.log("Building base HTML...");
+}
+
+function cardHTML() {
+
+}
+
+function exitAdd() {
+    const html = `            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>`;
+    fs.appendFile(path, html, function (err) {
+        if (err) {
+            console.log(err);
+        };
+    });
+    console.log('HTML Created! Thank you for using the MissNG Team Generator :)')
+}
+
+function init() {
+    baseHTML();
+    addMember();
+}
+
+init();

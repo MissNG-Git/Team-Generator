@@ -1,0 +1,63 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background-image:url(https://img.freepik.com/free-photo/blur-hospital-clinic-interior_74190-5207.jpg?size=626&ext=jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+h1 {
+  background-color: lightcoral;
+  font: white;
+  font-weight: bolder;
+  padding: 55px;
+}
+
+.container-fluid {
+  margin-bottom: 55px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.team-card {
+  float: ;
+  width: 100%;
+  padding: 5px;
+  margin:15px;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 50%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 850px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}

@@ -149,15 +149,13 @@ function baseHTML() {
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 jumbotron mb-3 team-header">
-                <h1 class="text-center">My Team</h1>
-            </div>
+            <h1 class="text-center">My Team</h1>
         </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="team-content col-12 d-flex justify-content-center">
+            <div class="team-content">
                 <!-- Team Cards -->
                 `;
 
@@ -180,18 +178,20 @@ function addCardHTML(member) {
         
         if (role === "Manager") {
             const number = member.getNum();
-            data = `<div class="card team-card" style="width: 18rem">
-                    <div class="card-header">
-                        <h2 class="card-title">${name}</h2>
-                        <h3 class="card-title"><i class="fas fa-mug-hot"></i> ${role}</h3>
-                    </div>
+            data = `<div class="column">
+                    <div class="card team-card" style="width: 18rem">
+                        <div class="card-header">
+                            <h2 class="card-title">${name}</h2>
+                            <h3 class="card-title"><i class="fas fa-mug-hot"></i> ${role}</h3>
+                        </div>
 
-                    <div class="card-body"></div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">ID: ${id}</li>
-                            <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
-                            <li class="list-group-item">Office Number: ${number}</li>
-                        </ul>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">ID: ${id}</li>
+                                <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+                                <li class="list-group-item">Office Number: ${number}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 `
@@ -199,18 +199,20 @@ function addCardHTML(member) {
 
         else if (role === "Engineer") {
             const git = member.getGit();
-            data = `<div class="card team-card" style="width: 18rem">
-                    <div class="card-header">
-                        <h2 class="card-title">${name}</h2>
-                        <h3 class="card-title"><i class="fas fa-glasses"></i> ${role}</h3>
-                    </div>
+            data = `<div class="column">
+                    <div class="card team-card" style="width: 18rem">
+                        <div class="card-header">
+                            <h2 class="card-title">${name}</h2>
+                            <h3 class="card-title"><i class="fas fa-glasses"></i> ${role}</h3>
+                        </div>
 
-                    <div class="card-body"></div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">ID: ${id}</li>
-                            <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
-                            <li class="list-group-item">GitHub: <a href="https://github.com/${git}">${git}</a></li>
-                        </ul>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">ID: ${id}</li>
+                                <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+                                <li class="list-group-item">GitHub: <a href="https://github.com/${git}">${git}</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 `
@@ -218,18 +220,20 @@ function addCardHTML(member) {
 
         else if (role === "Intern") {
             const school = member.getSchool();
-            data = `<div class="card team-card" style="width: 18rem">
-                    <div class="card-header">
-                        <h2 class="card-title">${name}</h2>
-                        <h3 class="card-title"><i class="fas fa-user-graduate"></i> ${role}</h3>
-                    </div>
+            data = `<div class="column">
+                    <div class="card team-card" style="width: 18rem">
+                        <div class="card-header">
+                            <h2 class="card-title">${name}</h2>
+                            <h3 class="card-title"><i class="fas fa-user-graduate"></i> ${role}</h3>
+                        </div>
 
-                    <div class="card-body"></div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">ID: ${id}</li>
-                            <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
-                            <li class="list-group-item">School: ${school}</li>
-                        </ul>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">ID: ${id}</li>
+                                <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+                                <li class="list-group-item">School: ${school}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 `

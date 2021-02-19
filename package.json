@@ -142,7 +142,6 @@
     "istanbul-lib-report": "^3.0.0",
     "istanbul-lib-instrument": "^4.0.3",
     "istanbul-lib-source-maps": "^4.0.0",
-    "jest": "^26.6.3",
     "istanbul-reports": "^3.0.2",
     "jest-diff": "^26.6.2",
     "jest-docblock": "^26.0.0",
@@ -321,9 +320,11 @@
     "word-wrap": "^1.2.3",
     "wrappy": "^1.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

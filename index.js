@@ -3,7 +3,7 @@ const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 const Manager = require('./lib/manager');
 const valCheck = (value) => { if(value){return true} else {return 'Please enter a value.'}};
-const teamMembers = []
+const teamMembers = [];
 const fs = require('fs');
 const path = './dist/team.html';
 
@@ -59,8 +59,8 @@ function addMember() {
                 let newMember = new Manager(name, id, email, number);
                 teamMembers.push(newMember);
                 console.log(teamMembers);
-                // add to HTML also
 
+                addCardHTML(newMember);
                 addMore();
             })
         }
@@ -78,8 +78,8 @@ function addMember() {
                 let newMember = new Engineer(name, id, email, git);
                 teamMembers.push(newMember);
                 console.log(teamMembers);
-                // add to HTML also
 
+                addCardHTML(newMember);
                 addMore();
             })
         }
@@ -97,8 +97,8 @@ function addMember() {
                 let newMember = new Intern(name, id, email, school);
                 teamMembers.push(newMember);
                 console.log(teamMembers);
-                // add to HTML also
 
+                addCardHTML(newMember);
                 addMore();
             })
         }
@@ -168,15 +168,45 @@ function baseHTML() {
     console.log("Building base HTML...");
 }
 
-function cardHTML() {
+function addCardHTML(member) {
+    return new Promise(function() {
+        const name = member.getName();
+        const role = member.getRole();
+        const id = member.getId();
+        const email = member.getEmail();
+        let data = "";
+        
+        if (role === "Manager") {
+        const number = member.getNumber();
+        data = `                <div class="card team-card" style="width: 18rem">
+                    <div class="card-header">
+                        <h2 class="card-title">${name}</h2>
+                        <h3 class="card-title"><i class="fas fa-mug-hot"></i>${role}</h3>
+                    </div>
 
+                    <div class="card-body"></div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID: ${id}</li>
+                            <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+                            <li class="list-group-item">Office number: ${number}</li>
+                        </ul>
+                    </div>
+                </div>`
+        }
+        fs.appendFile(path, data, function(err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+        console.log("Adding Team Member to HTML...");
+        })
 }
 
 function exitAdd() {
-    const html = `            </div>
+    const html = `
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>`;
     fs.appendFile(path, html, function (err) {

@@ -141,7 +141,7 @@ function baseHTML() {
 
     <title>MissNG Team</title>
 
-    <!-- add CSS? -->
+    <link rel="stylesheet" href="../assets/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">    <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/5e88de36ed.js" crossorigin="anonymous"></script>
 </head>
@@ -159,12 +159,14 @@ function baseHTML() {
         <div class="row">
             <div class="team-content col-12 d-flex justify-content-center">
                 <!-- Team Cards -->
-`;
+                `;
+
     fs.writeFile(path, html, function(err) {
         if (err) {
             console.log(err);
         }
     });
+
     console.log("Building base HTML...");
 }
 
@@ -177,27 +179,68 @@ function addCardHTML(member) {
         let data = "";
         
         if (role === "Manager") {
-        const number = member.getNumber();
-        data = `                <div class="card team-card" style="width: 18rem">
+            const number = member.getNum();
+            data = `<div class="card team-card" style="width: 18rem">
                     <div class="card-header">
                         <h2 class="card-title">${name}</h2>
-                        <h3 class="card-title"><i class="fas fa-mug-hot"></i>${role}</h3>
+                        <h3 class="card-title"><i class="fas fa-mug-hot"></i> ${role}</h3>
                     </div>
 
                     <div class="card-body"></div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">ID: ${id}</li>
                             <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
-                            <li class="list-group-item">Office number: ${number}</li>
+                            <li class="list-group-item">Office Number: ${number}</li>
                         </ul>
                     </div>
-                </div>`
+                </div>
+                `
         }
+
+        else if (role === "Engineer") {
+            const git = member.getGit();
+            data = `<div class="card team-card" style="width: 18rem">
+                    <div class="card-header">
+                        <h2 class="card-title">${name}</h2>
+                        <h3 class="card-title"><i class="fas fa-glasses"></i> ${role}</h3>
+                    </div>
+
+                    <div class="card-body"></div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID: ${id}</li>
+                            <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+                            <li class="list-group-item">GitHub: <a href="https://github.com/${git}">${git}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                `
+        }
+
+        else if (role === "Intern") {
+            const school = member.getSchool();
+            data = `<div class="card team-card" style="width: 18rem">
+                    <div class="card-header">
+                        <h2 class="card-title">${name}</h2>
+                        <h3 class="card-title"><i class="fas fa-user-graduate"></i> ${role}</h3>
+                    </div>
+
+                    <div class="card-body"></div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID: ${id}</li>
+                            <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+                            <li class="list-group-item">School: ${school}</li>
+                        </ul>
+                    </div>
+                </div>
+                `
+        }
+
         fs.appendFile(path, data, function(err) {
             if (err) {
                 console.log(err);
             }
         });
+
         console.log("Adding Team Member to HTML...");
         })
 }
@@ -209,11 +252,13 @@ function exitAdd() {
     </div>
 </body>
 </html>`;
+
     fs.appendFile(path, html, function (err) {
         if (err) {
             console.log(err);
         };
     });
+
     console.log('HTML Created! Thank you for using the MissNG Team Generator :)')
 }
 

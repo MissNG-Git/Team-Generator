@@ -7,6 +7,29 @@ const Manager = require('./lib/manager');
 const valCheck = (value) => { if(value){return true} else {return 'Please enter a value.'}};
 const teamMembers = []
 
+function addMore() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'Add another team member?',
+            name: 'addMore',
+            choices: [
+                'Yes', 
+                'No'
+            ],
+        }
+    ])
+    .then(function({addMore}) {
+        if (addMore === 'Yes') {
+            addMember();
+        }
+        else if (addMore === 'No') {
+            // create end fxn
+            exitAdd();
+        }
+    })
+}
+
 function addMember() {
     inquirer.prompt([
         {
@@ -46,7 +69,23 @@ function addMember() {
     ])
     .then(function({name, role, id, email}) {
         if (role === 'Manager') {
-            console.log('Mgr');
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    message: 'What is your office number?',
+                    name: 'number',
+                    default: '369',
+                    validate: valCheck
+                }              
+            ])
+            .then(function({number}) {
+                let newMember = new Manager(name, id, email, number);
+                teamMembers.push(newMember);
+                console.log(teamMembers);
+                // add to HTML also
+
+                addMore();
+            })
         }
         else if (role === 'Engineer') {
             inquirer.prompt([
@@ -64,40 +103,27 @@ function addMember() {
                 console.log(teamMembers);
                 // add to HTML also
 
-                inquirer.prompt([
-                    {
-                        type: 'list',
-                        message: 'Add another team member?',
-                        name: 'addMore',
-                        choices: [
-                            'Yes', 
-                            'No'
-                        ],
-                    }
-                ])
-                .then(function({addMore}) {
-                    if (addMore === 'Yes') {
-                        addMember();
-                    }
-                    else if (addMore === 'No') {
-                        // create end fxn
-                        exitAdd();
-                    }
-                })                
+                addMore();
             })
-
         }
         else if (role === 'Intern') {
-            console.log('Noob');
-            // inquirer.prompt([
-            //     {
-            //         type: 'input',
-            //         message: 'Which school did you attend?',
-            //         name: 'school',
-            //         default: 'noobVersity',
-            //         validate: valCheck
-            //     },
-            // ])
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    message: 'Which school did you attend?',
+                    name: 'school',
+                    default: 'noobVersity',
+                    validate: valCheck
+                },           
+            ])
+            .then(function({school}) {
+                let newMember = new Intern(name, id, email, school);
+                teamMembers.push(newMember);
+                console.log(teamMembers);
+                // add to HTML also
+
+                addMore();
+            })
         }
     })
     .catch(function (err) {
